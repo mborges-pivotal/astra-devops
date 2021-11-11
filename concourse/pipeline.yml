@@ -1,0 +1,48 @@
+##################################################
+# RESOURCES TYPES
+##################################################
+resource_types:
+- name: terraform
+  type: docker-image
+  source:
+    repository: ljfranklin/terraform-resource
+    tag: latest
+
+##################################################
+# RESOURCES
+##################################################
+resources:
+
+- name: pipeline
+  type: git
+  source:
+    uri: ((pipeline-git-uri))
+    branch: ((pipeline-git-branch))
+
+- name: terraform
+  type: terraform
+  source:
+    backend_type: azurerm
+    backend_config:
+      resource_group_name: ((tf_resource_group_name))
+      storage_account_name: ((tf_storage_account_name))
+      container_name:       ((tf_container_name))
+      key:                  ((tf_key))
+    vars:
+      astra_token: ((astra_token))
+    env:
+      ARM_ACCESS_KEY: ((arm_access_key))
+      
+##################################################
+# JOBS
+##################################################
+---
+jobs:
+
+- name: prepare-env
+  plan:
+  - get: pipeline
+  - put: terraform
+    params:
+      terraform_source: pipeline/terraform
+      plan_only: true

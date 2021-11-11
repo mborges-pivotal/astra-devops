@@ -1,3 +1,10 @@
+# Marcelo SECRETS
+**/SECRETS/*
+.DS_Store
+**/.DS_Store
+.vsCode/
+
+
 # Local .terraform directories
 **/.terraform/*
 
