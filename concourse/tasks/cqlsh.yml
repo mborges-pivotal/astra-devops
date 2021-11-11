@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: registry-image
   source: 
-    repository: busybox
-    tag: 'latest'
+    repository: datastaxdesktop/cqlsh
+    tag: '1.0.1'
 
 inputs:
 - name: pipeline
