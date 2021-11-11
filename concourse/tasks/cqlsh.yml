@@ -14,7 +14,6 @@ inputs:
 params:
   ASTRA_CLIENT_ID: 
   ASTRA_CLIENT_SECRET: 
-  ASTRA_SECURE_BUNDLE_PATH: 
 
 run:
   path: pipeline/concourse/tasks/cqlsh.sh

@@ -71,7 +71,7 @@ jobs:
   - task: run-cqlsh
     file: pipeline/concourse/tasks/cqlsh.yml
     params:
-      astra_client_id: ((astra_client_id))
-      astra_client_secret: ((astra_client_secret))
+      ASTRA_CLIENT_ID: ((astra_client_id))
+      ASTRA_CLIENT_SECRET: ((astra_client_secret))
       
          

@@ -13,10 +13,12 @@ chmod +x $HOME/jq
 secure_connect_bundle_url=$(cat terraform/metadata | $HOME/jq -r '.secure_connect_bundle_url')
 wget -O $HOME/secure_connect_bundle.zip $secure_connect_bundle_url
 
+task_dir=$PWD
+
 # Install CQLSH for Astra
-mv pipeline/concourse/tasks/ccqlsh-astra-20201104-bin.tar.gz $HOME
+cp pipeline/concourse/tasks/cqlsh-astra-20201104-bin.tar.gz $HOME
 cd
-tar -xvf ccqlsh-astra-20201104-bin.tar.gz
+tar -xvf cqlsh-astra-20201104-bin.tar.gz
 
 # Run CQLSH
-/usr/share/cqlclient/cqlsh -u $ASTRA_CLIENT_ID -p $ASTRA_CLIENT_SECRET -b $HOME/secure_connect_bundle.zip -f create_model.cql
+cqlsh-astra/bin/cqlsh -u $ASTRA_CLIENT_ID -p $ASTRA_CLIENT_SECRET -b $HOME/secure_connect_bundle.zip -f ${task_dir}/pipeline/concourse/tasks/create_model.cql
