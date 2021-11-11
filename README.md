@@ -4,13 +4,16 @@ Thanks to the [startship-enterprise](https://github.com/michelderu/starship-ente
 
 Currently there are a lot of assumption about the knowledge required to run this demonstration. We'll improve and add more detail over time. There are 2 parts to this demo: 
 
-1. Terraform script 
-1. Astra cql script
-1. concourse pipeline
+1. Terraform script - to provision the Astra DB which would include any security (IP lists, private links, custom roles) and keyspace information.
+1. Astra cql script - to configure the data model
 
-The idea is to use terraform to quickly provision an Astra Database and the cql script to deploye the data model and possibly load data. The concourse pipeline automates the process. 
+
+The idea is to coordinate these 2 basic tasks above in a more comprehensive CI/CD automation and leverage Infrastrucure As Code to bring speed and consistency in all deployments. In this demo we use concourse pipeline automates the process. 
+
+![usage](docs/images/pipeline.png)
 
 ## Requirements
+Currently there is an expecation that the links below would be sufficient to setup the environment. It is primarily concourse that is currently deployed in kubernetes. For a local environment with a powerful enough machine you can use docker with kind.
 
 * [kind](https://kind.sigs.k8s.io/) to run a local kubernetes cluster
 * [https://concourse-ci.org/](concourse-ci) used to manage the CI/CD automation
@@ -58,6 +61,7 @@ $ terraform plan -var-file="../SECRETS/terraform.tfvars"
 ```
 
 ## Deploying your pipeline
+All secrets are provided as environment variable to the pipeline. We would typicaly store them in a secrets store.
 
 ```
 $ export ARM_ACCESS_KEY=YOUR_ACCESS_KEY
