@@ -49,10 +49,8 @@ jobs:
 - name: terraform-apply
   plan:
   - get: pipeline
-    trigger: false
     passed: [terraform-plan]
   - get: terraform
-    trigger: false
     passed: [terraform-plan]
   - put: terraform
     params:
