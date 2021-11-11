@@ -1,3 +1,4 @@
+---
 ##################################################
 # RESOURCES TYPES
 ##################################################
@@ -12,7 +13,6 @@ resource_types:
 # RESOURCES
 ##################################################
 resources:
-
 - name: pipeline
   type: git
   source:
@@ -36,13 +36,26 @@ resources:
 ##################################################
 # JOBS
 ##################################################
----
 jobs:
-
-- name: prepare-env
+- name: terraform-plan
   plan:
   - get: pipeline
   - put: terraform
     params:
+      env_name: ((tf_env_name))
       terraform_source: pipeline/terraform
       plan_only: true
+
+- name: terraform-apply
+  plan:
+  - get: pipeline
+    trigger: false
+    passed: [terraform-plan]
+  - get: terraform
+    trigger: false
+    passed: [terraform-plan]
+  - put: terraform
+    params:
+      env_name: ((tf_env_name))
+      terraform_source: pipeline/terraform
+      plan_run: true      

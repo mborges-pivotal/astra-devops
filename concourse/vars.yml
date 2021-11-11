@@ -4,7 +4,7 @@
 # Pipeline
 ############
 pipeline-git-uri: https://github.com/mborges-pivotal/astra-devops.git
-pipeline-git-branch: master
+pipeline-git-branch: main
 
 ############
 # Astra
@@ -18,5 +18,6 @@ tf_resource_group_name: StorageAccount-ResourceGroup
 tf_storage_account_name: stdemotfstate
 tf_container_name: tfstate
 tf_key: prod.terraform.tfstate
+tf_env_name: staging
 
 arm_access_key: YOUR_ARM_ACCESS_KEY
