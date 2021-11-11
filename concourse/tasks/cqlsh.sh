@@ -14,7 +14,7 @@ secure_connect_bundle_url=$(cat terraform/metadata | $HOME/jq -r '.secure_connec
 wget -O $HOME/secure_connect_bundle.zip $secure_connect_bundle_url
 
 # Install CQLSH for Astra
-mv concourse/tasks/ccqlsh-astra-20201104-bin.tar.gz $HOME
+mv pipeline/concourse/tasks/ccqlsh-astra-20201104-bin.tar.gz $HOME
 cd
 tar -xvf ccqlsh-astra-20201104-bin.tar.gz
 
