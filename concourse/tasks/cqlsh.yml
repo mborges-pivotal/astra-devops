@@ -1,0 +1,20 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source: 
+    repository: busybox
+    tag: 'latest'
+
+inputs:
+- name: pipeline
+- name: terraform
+
+params:
+  ASTRA_CLIENT_ID: 
+  ASTRA_CLIENT_SECRET: 
+  ASTRA_SECURE_BUNDLE_PATH: 
+
+run:
+  path: pipeline/tasks/cqlsh.sh

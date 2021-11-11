@@ -43,26 +43,25 @@ output "existing_dbs" {
   value = [for db in data.astra_databases.databaselist.results : db.id]
 }
 
+// Create the database and initial keyspace
+resource "astra_database" "dev" {
+  name           = "development"
+  keyspace       = "cloudops"
+  cloud_provider = "AZURE"
+  region         = "eastus2"
+}
 
-# // Create the database and initial keyspace
-# resource "astra_database" "dev" {
-#   name           = "humana_demo"
-#   keyspace       = "life_support_systems"
-#   cloud_provider = "AWS"
-#   region         = "eu-central-1"
-# }
+// Get the location of the secure connect bundle
+data "astra_secure_connect_bundle_url" "dev" {
+  database_id = astra_database.dev.id
+}
 
-# // Get the location of the secure connect bundle
-# data "astra_secure_connect_bundle_url" "dev" {
-#   database_id = astra_database.dev.id
-# }
+// Output the created database id
+output "database_id" {
+  value = astra_database.dev.id
+}
 
-# // Output the created database id
-# output "database_id" {
-#   value = astra_database.dev.id
-# }
-
-# // Output the download location for the secure connect bundle
-# output "secure_connect_bundle_url" {
-#   value = data.astra_secure_connect_bundle_url.dev.url
-# }
+// Output the download location for the secure connect bundle
+output "secure_connect_bundle_url" {
+  value = data.astra_secure_connect_bundle_url.dev.url
+}

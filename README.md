@@ -54,14 +54,19 @@ You can run terraform locally, though this current version is configure to use t
 $ export ARM_ACCESS_KEY=YOUR_ACCESS_KEY
 $ cd terraform 
 $ terraform init
+$ terraform plan -var-file="../SECRETS/terraform.tfvars"
 ```
 
 ## Deploying your pipeline
 
 ```
 $ export ARM_ACCESS_KEY=YOUR_ACCESS_KEY
+$ export ASTRA_TOKEN=YOUR_ASTRA_TOKEN
+$ export ASTRA_CLIENT_ID=YOUR_ASTRA_CLIENT_ID
+$ export ASTRA_CLIENT_SECRET=YOUR_ASTRA_CLIENT_SECRET
+
 $ cd pipeline
-$ fly -t local set-pipeline -p astra-devops --config pipeline.yml --var "astra_token=$ASTRA_TOKEN" --var "arm_access_key=$ARM_ACCESS_KEY" --load-vars-from vars.yml
+$ fly -t local set-pipeline -p astra-devops --config pipeline.yml --var "astra_token=$ASTRA_TOKEN" --var "astra_client_id=$ASTRA_CLIENT_ID" --var "astra_client_secret=$ASTRA_CLIENT_SECRET" --var "arm_access_key=$ARM_ACCESS_KEY" --load-vars-from vars.yml
 ```
 
 

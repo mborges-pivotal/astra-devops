@@ -58,4 +58,20 @@ jobs:
     params:
       env_name: ((tf_env_name))
       terraform_source: pipeline/terraform
-      plan_run: true      
+      plan_run: true 
+      
+- name: run-cql
+  plan:
+  - get: pipeline
+    trigger: false
+    passed: [terraform-apply]
+  - get: terraform
+    trigger: false
+    passed: [terraform-apply]
+  - task: run-cqlsh
+    file: pipeline/concourse/tasks/cqlsh.yml
+    params:
+      astra_client_id: ((astra_client_id))
+      astra_client_secret: ((astra_client_secret))
+      
+         

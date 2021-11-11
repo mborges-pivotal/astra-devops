@@ -10,6 +10,8 @@ pipeline-git-branch: main
 # Astra
 ############
 astra_token: YOUR_ASTRA_TOKEN
+astra_client_id: YOUR_ASTRA_CLIENT_ID
+astra_client_secret: YOUR_ASTRA_CLIENT_SECRET
 
 ############
 # Terraform backend
