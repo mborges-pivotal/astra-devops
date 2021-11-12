@@ -46,6 +46,22 @@ jobs:
       terraform_source: pipeline/terraform
       plan_only: true
 
+- name: terraform-destroy
+  plan:
+    - get: pipeline
+      trigger: false
+      passed: [terraform-plan]
+    - get: terraform
+      trigger: false
+      passed: [terraform-plan]
+    - put: terraform
+      params:
+        env_name: ((tf_env_name))
+        terraform_source: pipeline/terraform
+        action: destroy
+      get_params:
+        action: destroy
+
 - name: terraform-apply
   plan:
   - get: pipeline
